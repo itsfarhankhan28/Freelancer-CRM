@@ -2,10 +2,10 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-
 import path from 'path';
 import { fileURLToPath } from 'url';
-// import dotenv from 'dotenv';
+
+import clientRoutes from './routes/ClientRoute.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -18,6 +18,9 @@ const PORT = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
+// Routes
+app.use('/api/clients', clientRoutes);
 
 // Sample Route
 app.get('/', (req, res) => {
