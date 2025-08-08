@@ -7,7 +7,8 @@ import {
   deleteClient,
   addProjectToClient,
   updateClientProject,
-  deleteClientProject
+  deleteClientProject,
+  getClientProjectById
 } from '../controllers/ClientController.js';
 
 const router = express.Router();
@@ -21,6 +22,7 @@ router.delete('/:id', deleteClient);
 
 // Project (nested inside client)
 router.post('/:clientId/projects', addProjectToClient);
+router.get('/:clientId/projects/:projectId', getClientProjectById);
 router.put('/:clientId/projects/:projectId', updateClientProject);
 router.delete('/:clientId/projects/:projectId', deleteClientProject);
 

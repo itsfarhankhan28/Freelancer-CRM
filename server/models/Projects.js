@@ -5,8 +5,8 @@ const projectSchema = new mongoose.Schema({
   description: String,
   status: {
     type: String,
-    enum: ['Ongoing', 'Delivered', 'Under Maintenance'],
-    default: 'Ongoing'
+    enum: ['ongoing', 'delivered', 'under maintenance'],
+    default: 'ongoing'
   },
   startDate: Date,
   endDate: Date

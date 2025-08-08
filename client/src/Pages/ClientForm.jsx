@@ -40,7 +40,7 @@ const ClientForm = () => {
       } else {
         await api.post('/clients', formData);
       }
-      navigate('/');
+      navigate('/clients');
     } catch (err) {
       console.error(err);
     }

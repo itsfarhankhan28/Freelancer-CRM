@@ -69,6 +69,22 @@ export const addProjectToClient = async (req, res) => {
   }
 };
 
+// Get a single project by projectId for a specific client
+export const getClientProjectById = async (req, res) => {
+  try {
+    const client = await Client.findById(req.params.clientId);
+    if (!client) return res.status(404).json({ error: 'Client not found' });
+
+    const project = client.projects.id(req.params.projectId);
+    if (!project) return res.status(404).json({ error: 'Project not found' });
+
+    res.json(project);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+
 // Update a project
 export const updateClientProject = async (req, res) => {
   try {
@@ -93,7 +109,8 @@ export const deleteClientProject = async (req, res) => {
     const client = await Client.findById(req.params.clientId);
     if (!client) return res.status(404).json({ error: 'Client not found' });
 
-    client.projects.id(req.params.projectId).remove();
+    const deleteproject = client.projects.id(req.params.projectId);
+    deleteproject.remove
     await client.save();
 
     res.json({ message: 'Project deleted successfully' });
