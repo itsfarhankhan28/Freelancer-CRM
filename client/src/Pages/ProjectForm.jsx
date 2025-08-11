@@ -4,12 +4,13 @@ import api from '../api/axios.js';
 
 const ProjectForm = () => {
   const params = useParams();
-  console.log(params.id)
 
   const [formData, setFormData] = useState({
     title: '',
     description: '',
     status: 'ongoing',
+    deliveryDate: '',
+    followUpIntervalDays: 0
   });
 
   const handleChange = (e) => {
@@ -23,7 +24,8 @@ const ProjectForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post(`/clients/${params.id}/projects`, formData)
+      await api.post(`/clients/${params.id}/projects`, formData);
+      alert("Project added successfully!");
     } catch (err) {
       console.error(err);
     }
@@ -33,6 +35,8 @@ const ProjectForm = () => {
     <div className="max-w-xl mx-auto p-6 bg-white rounded-2xl shadow">
       <h2 className="text-xl font-bold mb-4">Add Project</h2>
       <form onSubmit={handleSubmit} className="grid gap-4">
+
+        {/* Project Title */}
         <input
           type="text"
           name="title"
@@ -42,6 +46,8 @@ const ProjectForm = () => {
           className="p-2 border rounded"
           required
         />
+
+        {/* Project Description */}
         <textarea
           name="description"
           value={formData.description}
@@ -50,17 +56,41 @@ const ProjectForm = () => {
           className="p-2 border rounded"
         />
 
+        {/* Status */}
         <select
           name="status"
           value={formData.status}
           onChange={handleChange}
           className="p-2 border rounded"
         >
-          <option value="ongoing">ongoing</option>
-          <option value="delivered">delivered</option>
-          <option value="under maintenance">under maintenance</option>
+          <option value="ongoing">Ongoing</option>
+          <option value="delivered">Delivered</option>
+          <option value="maintenance">Maintenance</option>
         </select>
 
+        {/* Delivery Date */}
+        <input
+          type="date"
+          name="deliveryDate"
+          value={formData.deliveryDate}
+          onChange={handleChange}
+          className="p-2 border rounded"
+          required
+        />
+
+        {/* Follow-up Interval in Days */}
+        <input
+          type="number"
+          name="followUpIntervalDays"
+          value={formData.followUpIntervalDays}
+          onChange={handleChange}
+          placeholder="Follow-up Interval (days)"
+          className="p-2 border rounded"
+          min="0"
+          required
+        />
+
+        {/* Submit */}
         <button
           type="submit"
           className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
