@@ -1,4 +1,5 @@
 import Client from '../models/Clients.js';
+import axios from 'axios';
 
 // Create a new client
 export const createClient = async (req, res) => {
@@ -114,6 +115,53 @@ export const deleteClientProject = async (req, res) => {
     await client.save();
 
     res.json({ message: 'Project deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Get projects due for follow-up
+export const getDueFollowUps = async (req, res) => {
+  try {
+    const startOfToday = new Date();
+startOfToday.setHours(0, 0, 0, 0);
+
+const endOfToday = new Date();
+endOfToday.setHours(23, 59, 59, 999);
+
+const clients = await Client.find({
+  "projects.nextFollowUpDate": { $gte: startOfToday, $lte: endOfToday }
+});
+
+    // Flatten results to just the projects that are due
+    const dueProjects = [];
+
+    clients.forEach(client => {
+      client.projects.forEach(project => {
+        if (
+  project.nextFollowUpDate &&
+  project.nextFollowUpDate >= startOfToday &&
+  project.nextFollowUpDate <= endOfToday
+) {
+  dueProjects.push({
+    clientId: client._id,
+    clientName: client.name,
+    clientEmail: client.email,
+    projectId: project._id,
+    title: project.title,
+    nextFollowUpDate: project.nextFollowUpDate
+  });
+}
+      });
+    });
+
+    if (dueProjects.length > 0) {
+      await axios.post("http://localhost:5678/webhook-test/due-projects-webhook", {
+        dueProjects
+      });
+    }  
+
+    res.json(dueProjects);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

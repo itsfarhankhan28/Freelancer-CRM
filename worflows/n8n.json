@@ -1,0 +1,66 @@
+{
+  "name": "Due Projects Follow-Up Email",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "due-projects-webhook",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Webhook Trigger",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [300, 300],
+      "webhookDescription": "Receives due projects from backend"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": 0, 
+        "options": {}
+      },
+      "id": "2",
+      "name": "Split In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 1,
+      "position": [500, 300]
+    },
+    {
+      "parameters": {
+        "transport": "smtp",
+        "smtp": {
+          "host": "smtp.gmail.com",
+          "port": 465,
+          "secure": true,
+          "user": "famannat@gmail.com",
+          "password": "pssuxgfueqbaarjz"
+        },
+        "fromEmail": "famannat@gmail.com",
+        "toEmail": "={{$json.clientEmail}}",
+        "subject": "Project Follow-Up Reminder",
+        "text": "Hello {{$json.clientName}},\n\nThis is a reminder for your project: {{$json.title}}.\nDue Date: {{$json.nextFollowUpDate}}",
+        "html": "<html><body style='font-family: Arial, sans-serif;'><h2>Project Follow-Up Reminder</h2><p>Hello {{$json.clientName}},</p><p>This is a reminder for your project: <strong>{{$json.title}}</strong>.</p><p>Due Date: <strong>{{$json.nextFollowUpDate}}</strong></p><p>Please get in touch if you have any updates.</p></body></html>"
+      },
+      "id": "3",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [700, 300]
+    }
+  ],
+  "connections": {
+    "Webhook Trigger": {
+      "main": [
+        [
+          { "node": "Split In Batches", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Split In Batches": {
+      "main": [
+        [
+          { "node": "Send Email", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
+}

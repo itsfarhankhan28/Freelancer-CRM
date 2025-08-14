@@ -8,7 +8,8 @@ import {
   addProjectToClient,
   updateClientProject,
   deleteClientProject,
-  getClientProjectById
+  getClientProjectById,
+  getDueFollowUps
 } from '../controllers/ClientController.js';
 
 const router = express.Router();
@@ -25,5 +26,7 @@ router.post('/:clientId/projects', addProjectToClient);
 router.get('/:clientId/projects/:projectId', getClientProjectById);
 router.put('/:clientId/projects/:projectId', updateClientProject);
 router.delete('/:clientId/projects/:projectId', deleteClientProject);
+
+router.get('/follow-ups/due', getDueFollowUps);
 
 export default router;
