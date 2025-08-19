@@ -1,6 +1,7 @@
 import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ClientList from './Pages/ClientList.jsx';
+import DashBoard from './Pages/Dashboard.jsx'
+// import ClientList from './Components/ClientList.jsx';
 import ClientForm from './Pages/ClientForm.jsx';
 import ClientInfo from './Pages/ClientInfo.jsx'
 import ProjectForm from './Pages/ProjectForm.jsx'
@@ -12,7 +13,7 @@ function App() {
     <>
     <Router>
       <Routes>
-        <Route path="/clients" element={<ClientList />} />
+        <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/clients/new" element={<ClientForm />} />
         <Route path="/clients/edit/:id" element={<ClientForm />} />
         <Route path="/clients/info/:id" element={<ClientInfo/>} />
