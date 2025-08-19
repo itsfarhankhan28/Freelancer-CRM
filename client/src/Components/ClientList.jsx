@@ -31,7 +31,7 @@ const ClientList = () => {
 
   const ProfileCard = ({ _id, name, email }) => {
   return (
-    <Card sx={{ maxWidth: 280, borderRadius: 3, boxShadow: 3 }}>
+    <Card sx={{ width: 250, borderRadius: 3, boxShadow: 3 }}>
       <CardHeader
         avatar={<Avatar sx={{ width: 56, height: 56 }} />}
         title={
@@ -55,9 +55,7 @@ const ClientList = () => {
 };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Clients</h1>
-
+    <div>
       <Grid container spacing={3}>
         {clients.map(client => (
           <>
@@ -76,9 +74,9 @@ const ClientList = () => {
               </div>
             </div>
           </Link> */}
-          <Grid item xs={12} sm={6} md={4}>
+          <div className='flex flex-wrap'>
             <ProfileCard {...client} />
-          </Grid>
+          </div>
           </>
         ))}
         </Grid>
