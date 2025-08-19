@@ -1,21 +1,32 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import api from '../api/axios.js';
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import {
+  Box,
+  Paper,
+  TextField,
+  Typography,
+  Button,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+import api from "../api/axios.js";
 
 const ProjectForm = () => {
   const params = useParams();
 
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    status: 'ongoing',
-    deliveryDate: '',
-    followUpIntervalDays: 0
+    title: "",
+    description: "",
+    status: "ongoing",
+    deliveryDate: "",
+    followUpIntervalDays: 0,
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -32,73 +43,102 @@ const ProjectForm = () => {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded-2xl shadow">
-      <h2 className="text-xl font-bold mb-4">Add Project</h2>
-      <form onSubmit={handleSubmit} className="grid gap-4">
-
-        {/* Project Title */}
-        <input
-          type="text"
-          name="title"
-          value={formData.title}
-          onChange={handleChange}
-          placeholder="Project Title"
-          className="p-2 border rounded"
-          required
-        />
-
-        {/* Project Description */}
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-          placeholder="Project Description"
-          className="p-2 border rounded"
-        />
-
-        {/* Status */}
-        <select
-          name="status"
-          value={formData.status}
-          onChange={handleChange}
-          className="p-2 border rounded"
-        >
-          <option value="ongoing">Ongoing</option>
-          <option value="delivered">Delivered</option>
-          <option value="maintenance">Maintenance</option>
-        </select>
-
-        {/* Delivery Date */}
-        <input
-          type="date"
-          name="deliveryDate"
-          value={formData.deliveryDate}
-          onChange={handleChange}
-          className="p-2 border rounded"
-          required
-        />
-
-        {/* Follow-up Interval in Days */}
-        <input
-          type="number"
-          name="followUpIntervalDays"
-          value={formData.followUpIntervalDays}
-          onChange={handleChange}
-          placeholder="Follow-up Interval (days)"
-          className="p-2 border rounded"
-          min="0"
-          required
-        />
-
-        {/* Submit */}
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
-        >
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        bgcolor: "#f5f5f5",
+        p: 2,
+      }}
+    >
+      <Paper
+        elevation={4}
+        sx={{ p: 4, borderRadius: 3, maxWidth: 600, width: "100%" }}
+      >
+        <Typography variant="h5" fontWeight="bold" gutterBottom>
           Add Project
-        </button>
-      </form>
-    </div>
+        </Typography>
+
+        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
+          {/* Project Title */}
+          <TextField
+            label="Project Title"
+            name="title"
+            value={formData.title}
+            onChange={handleChange}
+            fullWidth
+            required
+            margin="normal"
+          />
+
+          {/* Project Description */}
+          <TextField
+            label="Project Description"
+            name="description"
+            value={formData.description}
+            onChange={handleChange}
+            fullWidth
+            multiline
+            rows={3}
+            margin="normal"
+          />
+
+          {/* Status */}
+          <FormControl fullWidth margin="normal">
+            <InputLabel>Status</InputLabel>
+            <Select
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+              label="Status"
+            >
+              <MenuItem value="ongoing">Ongoing</MenuItem>
+              <MenuItem value="delivered">Delivered</MenuItem>
+              <MenuItem value="maintenance">Maintenance</MenuItem>
+            </Select>
+          </FormControl>
+
+          {/* Delivery Date */}
+          <TextField
+            label="Delivery Date"
+            type="date"
+            name="deliveryDate"
+            value={formData.deliveryDate}
+            onChange={handleChange}
+            fullWidth
+            required
+            margin="normal"
+            InputLabelProps={{ shrink: true }}
+          />
+
+          {/* Follow-up Interval */}
+          <TextField
+            label="Follow-up Interval (days)"
+            type="number"
+            name="followUpIntervalDays"
+            value={formData.followUpIntervalDays}
+            onChange={handleChange}
+            fullWidth
+            required
+            margin="normal"
+            inputProps={{ min: 0 }}
+          />
+
+          {/* Submit */}
+          <Button
+            type="submit"
+            variant="contained"
+            color="success"
+            sx={{ mt: 3, borderRadius: 2 }}
+            fullWidth
+          >
+            Add Project
+          </Button>
+        </Box>
+      </Paper>
+    </Box>
   );
 };
 

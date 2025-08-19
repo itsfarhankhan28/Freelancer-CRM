@@ -9,8 +9,10 @@ import { DashboardLayout } from '@toolpad/core/DashboardLayout';
 import ClientList from '../Components/ClientList';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
-import {useState} from 'react'
+// import {useState} from 'react'
 import ClientForm from '../Components/ClientForm';
+import { useSelector,useDispatch } from 'react-redux';
+import { OpenModal,CloseModal } from '../redux/Slices/modalSlice';
 
 const NAVIGATION = [
   {
@@ -60,10 +62,17 @@ DemoPageContent.propTypes = {
 
 
 const Dashboard = (props) => {
+  const dispatch = useDispatch()
+  const stateVal = useSelector((state)=>state.modal.ModalState)
+  console.log(stateVal)
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = ()=>{
+    if (stateVal === false) {
+  dispatch(OpenModal());
+} else {
+  dispatch(CloseModal());
+}
+  }
 
   return (
     <>
@@ -83,8 +92,8 @@ const Dashboard = (props) => {
 
 
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={stateVal}
+        onClose={() => dispatch(CloseModal())} 
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
         slotProps={{ backdrop: { sx: { backdropFilter: 'blur(5px)', backgroundColor: 'rgba(0,0,0,0.2)' } } }}
