@@ -11,23 +11,29 @@ import {
   Button,
   Grid
 } from "@mui/material";
+import { useSelector } from 'react-redux';
 
 const ClientList = () => {
   const [clients, setClients] = useState([]);
   // const navigate = useNavigate()
 
+  const PageValue = useSelector((state)=>state.pagination.value)
+  console.log(PageValue)
+
+  const limit = 5
+
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const res = await api.get('/clients');
-        setClients(res.data);
-        console.log(res.data)
+        const res = await api.get(`/clients?page=${PageValue}&limit=${limit}`);
+        setClients(res.data.clients);
+        console.log(res.data.clients)
       } catch (err) {
         console.error(err);
       }
     };
     fetchClients();
-  }, []);
+  }, [PageValue]);
 
   const ProfileCard = ({ _id, name, email }) => {
   return (
@@ -56,30 +62,24 @@ const ClientList = () => {
 
   return (
     <div>
-      <Grid container spacing={3}>
-        {clients.map(client => (
+      {clients?.length == 0 ? 
+    
+    <h1>No Clients</h1>
+
+    :
+
+        <Grid container spacing={3}>
+        {clients?.map((client) => {
+          return(
           <>
-          {/* <Link to={`/clients/info/${client._id}`}>
-            <div key={client._id} className="bg-white rounded-2xl p-4 shadow">
-              <div className="text-lg font-semibold">{client.name}</div>
-              <div className="text-sm text-gray-600">{client.email}</div>
-              <div className="text-sm">Follow-up in {client.followUpInterval} days</div>
-              <div className="mt-2">
-                <span className="text-sm font-medium">Projects:</span>
-                <ul className="list-disc ml-5">
-                  {client.projects.map(p => (
-                    <li key={p._id}>{p.title} — {p.status}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </Link> */}
           <div className='flex flex-wrap'>
             <ProfileCard {...client} />
           </div>
           </>
-        ))}
+        )})}
         </Grid>
+    
+    }
     </div>
   );
 };

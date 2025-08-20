@@ -13,6 +13,8 @@ import Modal from '@mui/material/Modal';
 import ClientForm from '../Components/ClientForm';
 import { useSelector,useDispatch } from 'react-redux';
 import { OpenModal,CloseModal } from '../redux/Slices/modalSlice';
+import { setPage } from '../redux/Slices/paginationSlice';
+import Pagination from '@mui/material/Pagination';
 
 const NAVIGATION = [
   {
@@ -74,6 +76,13 @@ const Dashboard = (props) => {
 }
   }
 
+  const PageValue = useSelector((state)=>state.pagination.value)
+  // console.log(PageValue)
+
+  const handleChange=(event,value)=>{
+    dispatch(setPage(value))
+  }
+
   return (
     <>
       <AppProvider
@@ -86,6 +95,9 @@ const Dashboard = (props) => {
           </div>
           <div className='p-4'>
             <ClientList/>
+          </div>
+          <div className='flex justify-center'>
+            <Pagination count={5} onChange={handleChange}/>
           </div>
         </DashboardLayout>
       </AppProvider>

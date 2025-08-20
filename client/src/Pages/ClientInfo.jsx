@@ -35,6 +35,7 @@ const style = {
 
 const ClientInfo = () => {
     const [client, setSingleClient] = useState([])
+    console.log(client)
 
     const params = useParams()
 
@@ -152,6 +153,12 @@ const ClientInfo = () => {
             </Typography>
             <Link to={`/projects/new/${client._id}`}><Button>Add Project</Button></Link>
           </div> 
+          {client?.projects?.length == 0 ? 
+          
+          <h1>No Projects</h1>
+
+          :
+          
           <Box
             sx={{
               maxHeight: 200,
@@ -162,17 +169,21 @@ const ClientInfo = () => {
             }}
           >
             <List>
-              {client?.projects?.map((project) => (
+              {client?.projects?.map((project) => {
+              return(
                 <ListItem key={project.id} divider className='flex justify-between'>
+                  
                   <ListItemText
                     primary={project.title}
                     secondary={`Status: ${project.status}`}
                   />
                   <Link to={`/projects/edit/${project._id}?clientID=${client._id}`}><Button>Edit Project</Button></Link>
                 </ListItem>
-              ))}
+              )})}
             </List>
           </Box>
+          
+          }
         </Box>
       </Card>
     </Box>

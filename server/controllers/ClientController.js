@@ -12,11 +12,30 @@ export const createClient = async (req, res) => {
   }
 };
 
-// Get all clients
+// Get all clients ?page=1&limit=10
 export const getAllClients = async (req, res) => {
   try {
-    const clients = await Client.find();
-    res.json(clients);
+
+    //pagination
+    let {page,limit} = req.query
+
+    page = parseInt(page)
+    limit = parseInt(limit)
+
+    const skip = (page - 1) * limit;
+
+    const totalClient = await Client.countDocuments();
+
+    const clients = await Client.find()
+    .skip(skip)
+    .limit(limit);
+
+
+    res.json({
+      totalClient,
+      page,
+      pages: Math.ceil(totalClient / limit),
+      clients});
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
