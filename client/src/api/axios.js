@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "https://freelancer-crm-backend.onrender.com"
+  baseURL: import.meta.env.MODE === "development"
+    ? "/api" 
+    : "https://freelancer-crm-backend.onrender.com/api",
 });
 
 export default api;
