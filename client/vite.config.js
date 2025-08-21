@@ -8,9 +8,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  // server: {
-  //   proxy: {
-  //     '/api': 'https://freelancer-crm-backend.onrender.com'
-  //   }
-  // }
+  server: {
+    proxy: {
+      '/api': 'https://freelancer-crm-backend.onrender.com'
+    }
+  }
 })
