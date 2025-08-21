@@ -25,7 +25,7 @@ const ClientList = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const res = await api.get(`/api/clients?page=${PageValue}&limit=${limit}`);
+        const res = await api.get(`/clients?page=${PageValue}&limit=${limit}`);
         setClients(res.data.clients);
         console.log(res.data.clients)
       } catch (err) {
