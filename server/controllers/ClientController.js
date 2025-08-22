@@ -175,7 +175,7 @@ const clients = await Client.find({
     });
 
     if (dueProjects.length > 0) {
-      await axios.post("http://localhost:5678/webhook/due-projects-webhook", {
+      await axios.post("https://n8n-deployment-v029.onrender.com/webhook/follow-up", {
         dueProjects
       });
     }  

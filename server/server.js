@@ -44,10 +44,10 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Runs every minute
-cron.schedule("0 * * * *", async () => {
+cron.schedule("* * * * *", async () => {
   console.log("⏰ Checking due follow-ups (every minute)...");
   try {
-    const response = await axios.get("http://localhost:5000/api/clients/follow-ups/due");
+    const response = await axios.get("https://freelancer-crm-backend.onrender.com/api/clients/follow-ups/due");
     console.log("✅ Minute check complete. Found:", response.data);
   } catch (err) {
     console.error("❌ Error in minute follow-up job:", err.message);
