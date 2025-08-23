@@ -12,9 +12,11 @@ import {
   Grid
 } from "@mui/material";
 import { useSelector } from 'react-redux';
+import Loader from './Loader.jsx'
 
 const ClientList = () => {
   const [clients, setClients] = useState([]);
+  const [isLoading, setisLoading] = useState(true)
   // const navigate = useNavigate()
 
   const PageValue = useSelector((state)=>state.pagination.value)
@@ -25,15 +27,27 @@ const ClientList = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
+        setisLoading(true)
         const res = await api.get(`/clients?page=${PageValue}&limit=${limit}`);
         setClients(res.data.clients);
         console.log(res.data.clients)
       } catch (err) {
         console.error(err);
+      } finally{
+        setisLoading(false)
       }
     };
     fetchClients();
   }, [PageValue]);
+
+  
+  if(isLoading == true){
+    return(
+      <>
+      <Loader/>
+      </>
+    )
+  }
 
   const ProfileCard = ({ _id, name, email }) => {
   return (
