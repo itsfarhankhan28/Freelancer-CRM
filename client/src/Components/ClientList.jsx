@@ -42,11 +42,14 @@ const ClientList = () => {
 
   
   if(isLoading == true){
-    return(
-      <>
-      <Loader/>
-      </>
-    )
+    {clients?.map(() => {
+          return(
+          <>
+          <div className='flex flex-wrap'>
+            <Loader/>
+          </div>
+          </>
+        )})}
   }
 
   const ProfileCard = ({ _id, name, email }) => {
