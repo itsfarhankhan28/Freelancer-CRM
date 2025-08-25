@@ -44,7 +44,7 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Runs every minute
-cron.schedule("0 * * * *", async () => {
+cron.schedule("0,30 * * * *", async () => {
   console.log("⏰ Checking due follow-ups (every minute)...");
   try {
     const response = await axios.get("https://freelancer-crm-backend.onrender.com/api/clients/follow-ups/due");
