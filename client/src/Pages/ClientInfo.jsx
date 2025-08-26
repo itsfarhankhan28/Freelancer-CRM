@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
