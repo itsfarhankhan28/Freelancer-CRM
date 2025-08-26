@@ -11,12 +11,13 @@ import {
   getClientProjectById,
   getDueFollowUps
 } from '../controllers/ClientController.js';
+import {requireAuth} from '../middleware/auth.js'
 
 const router = express.Router();
 
 // Client routes
 router.post('/', createClient);
-router.get('/', getAllClients);
+router.get('/',requireAuth,  getAllClients);
 router.get('/:id', getClientById);
 router.put('/:id', updateClient);
 router.delete('/:id', deleteClient);

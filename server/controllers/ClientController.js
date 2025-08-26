@@ -26,7 +26,7 @@ export const getAllClients = async (req, res) => {
 
     const totalClient = await Client.countDocuments();
 
-    const clients = await Client.find()
+    const clients = await Client.find({ owner: req.user.id })
     .skip(skip)
     .limit(limit);
 

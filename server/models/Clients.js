@@ -2,6 +2,11 @@ import mongoose from 'mongoose';
 import projectSchema from './Projects.js';
 
 const clientSchema = new mongoose.Schema({
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",          // link each client to the freelancer (user)
+    required: true
+  },
   name: { type: String, required: true },
   email: { type: String, required: true },
   phone: String,

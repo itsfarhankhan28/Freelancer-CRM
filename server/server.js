@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import cron from "node-cron";
 import axios from "axios";
 
+import authRoutes from './routes/authRoutes.js'
 import clientRoutes from './routes/ClientRoute.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -25,6 +26,7 @@ app.use(cors({
 app.use(express.json());
 
 // Routes
+app.use('/api/auth', authRoutes)
 app.use('/api/clients', clientRoutes);
 
 // Sample Route
