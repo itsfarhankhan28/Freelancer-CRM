@@ -6,6 +6,7 @@ import DashBoard from './Pages/Dashboard.jsx'
 import ClientInfo from './Pages/ClientInfo.jsx'
 import ProjectForm from './Pages/ProjectForm.jsx'
 import ProjectEditForm from './Pages/ProjectEditForm.jsx'
+import Homepage from './Pages/Homepage.jsx'
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
     <>
     <Router>
       <Routes>
+        <Route path='/' element={<Homepage/>}></Route>
         <Route path="/dashboard" element={<DashBoard />} />
         {/* <Route path="/clients/new" element={<ClientForm />} /> */}
         {/* <Route path="/clients/edit/:id" element={<ClientForm />} /> */}

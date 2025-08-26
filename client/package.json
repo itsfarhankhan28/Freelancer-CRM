@@ -15,13 +15,18 @@
     "@mui/icons-material": "^7.3.1",
     "@mui/material": "^7.3.1",
     "@reduxjs/toolkit": "^2.8.2",
+    "@tabler/icons-react": "^3.34.1",
     "@tailwindcss/vite": "^4.1.12",
     "@toolpad/core": "^0.16.0",
     "axios": "^1.11.0",
+    "clsx": "^2.1.1",
+    "cobe": "^0.6.4",
+    "motion": "^12.23.12",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.7.1",
+    "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.12"
   },
   "devDependencies": {
