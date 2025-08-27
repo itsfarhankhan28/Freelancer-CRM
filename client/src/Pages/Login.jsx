@@ -3,15 +3,25 @@ import { Input } from "../Components/ui/input.jsx";
 import { cn } from "../lib/utils.js";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { loginUser } from "../redux/Slices/authSlice.js";
 
 export default function Login() {
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     console.log("Form submitted");
-//   };
+
+  const {loading, error} = useSelector((state)=>state.auth)
+  const dispatch = useDispatch()
+
     const[email, setEmail] = useState('')
     const[password, setPassword] = useState('')
-    // console.log(name,email,password)
+
+
+    const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginUser({
+      email,
+      password
+    }))
+    };
 
   return (
     <div
@@ -19,7 +29,7 @@ export default function Login() {
       <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
         Login
       </h2>
-      <form className="my-8">
+      <form className="my-8" onSubmit={handleSubmit}>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
           <Input id="email" placeholder="projectmayhem@fc.com" type="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
@@ -37,14 +47,13 @@ export default function Login() {
         <button
           className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
           type="submit">
-          Login &rarr;
+            {loading ? "Loging In ..." : "Login"}
           <BottomGradient />
         </button>
         <div
           className="my-8 h-[1px] w-full bg-gradient-to-r from-transparent via-neutral-300 to-transparent dark:via-neutral-700" />
-
-    
       </form>
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 }

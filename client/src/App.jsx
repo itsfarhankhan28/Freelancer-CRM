@@ -9,6 +9,7 @@ import ProjectEditForm from './Pages/ProjectEditForm.jsx'
 import Homepage from './Pages/Homepage.jsx'
 import SignUp from './Pages/SignUp.jsx'
 import Login from './Pages/Login.jsx'
+import PrivateRoute from './Components/PrivateRoute.jsx';
 
 function App() {
 
@@ -17,7 +18,11 @@ function App() {
     <Router>
       <Routes>
         <Route path='/' element={<Homepage/>}></Route>
-        <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/dashboard" element={
+          <PrivateRoute>
+            <DashBoard />
+          </PrivateRoute>
+          } />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         {/* <Route path="/clients/new" element={<ClientForm />} /> */}

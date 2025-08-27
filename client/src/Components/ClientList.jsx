@@ -21,6 +21,7 @@ const ClientList = () => {
 
   const PageValue = useSelector((state)=>state.pagination.value)
   console.log(PageValue)
+  const {token} = useSelector((state)=>state.auth)
 
   const limit = 5
 
@@ -28,7 +29,11 @@ const ClientList = () => {
     const fetchClients = async () => {
       try {
         setisLoading(true)
-        const res = await api.get(`/clients?page=${PageValue}&limit=${limit}`);
+        const res = await api.get(`/clients?page=${PageValue}&limit=${limit}`, {
+          headers:{
+            'Authorization': `Bearer ${token}`
+          }
+        });
         setClients(res.data.clients);
         console.log(res.data.clients)
       } catch (err) {
