@@ -15,7 +15,7 @@ function signToken(user) {
 
 export async function register(req, res) {
   try {
-    const { name, email, password } = registerSchema.parse(req.body);
+    const { name, email, password } = req.body;
 
     const existing = await User.findOne({ email });
     if (existing) return res.status(409).json({ message: "Email already registered" });
@@ -38,7 +38,7 @@ export async function register(req, res) {
 
 export async function login(req, res) {
   try {
-    const { email, password } = loginSchema.parse(req.body);
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email });
     if (!user) return res.status(401).json({ message: "Invalid credentials" });

@@ -8,6 +8,7 @@ import ProjectForm from './Pages/ProjectForm.jsx'
 import ProjectEditForm from './Pages/ProjectEditForm.jsx'
 import Homepage from './Pages/Homepage.jsx'
 import SignUp from './Pages/SignUp.jsx'
+import Login from './Pages/Login.jsx'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
         <Route path='/' element={<Homepage/>}></Route>
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
         {/* <Route path="/clients/new" element={<ClientForm />} /> */}
         {/* <Route path="/clients/edit/:id" element={<ClientForm />} /> */}
         <Route path="/clients/info/:id" element={<ClientInfo/>} />
