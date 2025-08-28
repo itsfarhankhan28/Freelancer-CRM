@@ -19,6 +19,7 @@ export const loginUser = createAsyncThunk(
     try {
       const response = await api.post(`/auth/login`, userData);
       localStorage.setItem("token", response.data.token); // store token
+      localStorage.setItem("user_id", response.data.user.id)
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data.message);
@@ -31,14 +32,17 @@ const authSlice = createSlice({
     initialState:{
         user:null,
         token:localStorage.getItem("token") || null,
+        user_id:localStorage.getItem("user_id") || null,
         loading: false,
         error: null,
+        // success:false
     },
     reducers:{
         logout:(state)=>{
             state.user = null,
             state.token = null,
             localStorage.removeItem('token')
+            localStorage.removeItem('user_id')
         }
     },
     extraReducers: (builder)=>{
@@ -62,7 +66,9 @@ const authSlice = createSlice({
         .addCase(loginUser.fulfilled, (state,action)=>{
             state.loading = false,
             state.user = action.payload.user,
-            state.token = action.payload.token
+            state.token = action.payload.token,
+            state.user_id = action.payload.user_id
+            // state.success = true
         })
         .addCase(loginUser.rejected, (state,action)=>{
             state.loading = false,

@@ -5,11 +5,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { loginUser } from "../redux/Slices/authSlice.js";
+// import { useNavigate } from "react-router-dom";
 
 export default function Login() {
 
   const {loading, error} = useSelector((state)=>state.auth)
   const dispatch = useDispatch()
+
+  // const navigate = useNavigate()
 
     const[email, setEmail] = useState('')
     const[password, setPassword] = useState('')
@@ -21,6 +24,10 @@ export default function Login() {
       email,
       password
     }))
+
+    // if(success == true){
+    //   navigate(`/dashboard?addTo=${user_id}`)
+    // }
     };
 
   return (

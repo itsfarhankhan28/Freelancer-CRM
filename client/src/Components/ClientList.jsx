@@ -43,7 +43,7 @@ const ClientList = () => {
       }
     };
     fetchClients();
-  }, [PageValue]);
+  }, [PageValue,token]);
 
   
   if(isLoading == true){

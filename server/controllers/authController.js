@@ -58,3 +58,12 @@ export async function login(req, res) {
     return res.status(500).json({ message: "Server error" });
   }
 }
+
+// export async function getUser (req,res){
+//   try{
+//     const response = await User.find()
+//     return res.json(response)
+//   }catch(err){
+//     console.log(err)
+//   }
+// }

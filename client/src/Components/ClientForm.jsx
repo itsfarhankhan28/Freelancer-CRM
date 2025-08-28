@@ -9,12 +9,16 @@ import {
   Grid
 } from "@mui/material";
 import api from "../api/axios";
+import { useSelector } from "react-redux";
 
 const ClientForm = () => {
   const { id } = useParams(); // client ID for editing
   const navigate = useNavigate();
 
+  const {user_id} = useSelector((state)=>state.auth)
+
   const [formData, setFormData] = useState({
+    owner:`${user_id}`,
     name: "",
     email: "",
     phone: "",
